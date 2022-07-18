@@ -5,7 +5,8 @@
   export let completeTask = () => { }
   export let deleteTask = () => { }
   export let completedMode = false
-
+  import { fade, fly } from 'svelte/transition';
+  
   function getEmojii(val) {
     switch(val) {
       case 1:
@@ -65,7 +66,7 @@
     {/if}
   </div>
   {#each tasks as val, i}
-    <div class="{getSideClass(val.value)} bg-white px-3 py-2 rounded mb-1  hover:bg-green-400 hover:text-white  cursor-pointer flex justify-between">
+    <div out:fly="{{ x: -200, duration: 1000 }}" in:fly="{{ x: 200, duration: 1000 }}" class="{getSideClass(val.value)} bg-white px-3 py-2 rounded mb-1  hover:bg-green-400 hover:text-white  cursor-pointer flex justify-between">
       <div class="flex">
         <div class="mr-2">{getEmojii(val.value)}</div>
         <div>{val.title}</div>

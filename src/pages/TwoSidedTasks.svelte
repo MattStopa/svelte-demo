@@ -29,7 +29,7 @@
 </script>
 
 <Card title="Two sided lists">
-  <div class="flex">
+  <div class="flex overflow-hidden">
     <div class="w-1/2">
       <TaskList 
         tasks={tasks} 
