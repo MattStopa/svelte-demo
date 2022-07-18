@@ -3,6 +3,7 @@
 	import MainForm from './pages/MainForm.svelte'
 	import Todos from './pages/Todos.svelte'
 	import Login from './pages/LoginScreen.svelte'
+	import TwoSidedTasks from './pages/TwoSidedTasks.svelte'
 	import { onMount } from 'svelte';
 
   let view = window.location.hash || '#form'
@@ -42,6 +43,9 @@
 			{#if view === '#todos'}
 				<Todos></Todos>
 	    {/if}
+			{#if view === '#twoListTodos'}
+				<TwoSidedTasks></TwoSidedTasks>
+			{/if}
 			{#if view === '#login'}
 				<Login></Login>
 			{/if}

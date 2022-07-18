@@ -4,7 +4,13 @@
 
   let errorMsg = null;
   let value = ''
-  let todos = ['Some stuff', 'hard work', 'sleeping in late', 'the greatest story of all time']
+  let todos = [
+    {title: 'Some stuff', color: "#ff9393"},
+    {title: 'Hard Work', color: "#33333a"},
+    {title: 'Sleeping In Late', color: "#aaf3f3"},
+    {title: 'Dont Count on it pal', color: "#3f3a33"}
+  ]
+  let color = "000"
   $: console.log(todos)
 
   function addItem (e) {
@@ -15,16 +21,32 @@
     }
 
     errorMsg = null
-    todos.push(value); 
+    todos.push({title: value, color: color}); 
     todos = todos
     value = ''
+    color = "#" + Math.floor(Math.random()*16777215).toString(16)
   }
 
   function removeItem(val) {
-    todos = todos.filter( (i) => i !== val)
+    todos = todos.filter( (i) => i.title !== val.title)
   }
 
   </script>
+
+  <div class="flex">
+    
+    <input type="color" id="head" name="head"  bind:value={color} class="h-12 mr-2"/>
+    <input placeholder="What needs to be done?" class="input" type="text" bind:value on:keypress={(e) => { addItem(e) }}>
+  </div>
+  <ErrorBox msg={errorMsg}></ErrorBox>
+
+{#each todos as val, i}
+  <div class="item flex" style={`border-left: 5px solid ${val.color}`}  on:click={(e) => { removeItem(val) }}>
+    <div class="mt-5 ml-5">⚪️</div>
+    <h3 >{val.title}</h3>
+  </div>
+{/each}
+
 
 <style>
   h3 {
@@ -68,14 +90,3 @@
   }
 
 </style>
-
-<input placeholder="What needs to be done?" class="input" type="text" bind:value on:keypress={(e) => { addItem(e) }}>
-<ErrorBox msg={errorMsg}></ErrorBox>
-
-{#each todos as val, i}
-  <div class="item flex">
-    <div class="mt-5 ml-5">⚪️</div>
-    <h3  on:click={(e) => { removeItem(val) }} >{val}</h3>
-  </div>
-{/each}
-
